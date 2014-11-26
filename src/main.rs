@@ -93,11 +93,11 @@ fn main() {
         peak = 1.0;
     }
     let samples: Vec<i16> = amplitudes.iter().map(|amplitude| {
-        (amplitude / peak * (i16::MAX - 1) as f64) as i16
+        (*amplitude / peak * (i16::MAX - 1) as f64) as i16
     }).collect();
 
     let device = alc::Device::open(None).expect("Could not open device");
-    let ctx = device.create_context([]).expect("Could not create context");
+    let ctx = device.create_context(&[]).expect("Could not create context");
     ctx.make_current();
 
     let buffer = al::Buffer::gen();
